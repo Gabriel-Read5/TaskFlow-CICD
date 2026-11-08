@@ -1,0 +1,213 @@
+
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Diseño del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background: #101827;
+    color: #f1f5f9;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.brand {
+    color: #818cf8;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 13px;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin: 10px 0;
+}
+
+.header p {
+    color: #94a3b8;
+}
+
+.header-icon {
+    background: #6366f1;
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Estadísticas */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 22px;
+    border-radius: 12px;
+}
+
+.stat-card span {
+    display: block;
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.stat-card strong {
+    font-size: 30px;
+}
+
+/* Secciones */
+.task-section {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+}
+
+.task-section h2 {
+    font-size: 19px;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+#task-form {
+    display: flex;
+    gap: 12px;
+}
+
+#task-input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    background: #0f172a;
+    color: white;
+    outline: none;
+}
+
+#task-input:focus {
+    border-color: #818cf8;
+}
+
+/* Botones */
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    background: #6366f1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4f46e5;
+}
+
+/* Lista de tareas */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Tareas completadas */
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: #64748b;
+}
+
+/* Acciones de tareas */
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions button {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+/* Mensaje de lista vacía */
+.empty-message {
+    color: #94a3b8;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    padding: 20px;
+}
+
+/* Adaptación para dispositivos móviles */
+@media (max-width: 600px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    #task-form {
+        flex-direction: column;
+    }
+
+    .task-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
