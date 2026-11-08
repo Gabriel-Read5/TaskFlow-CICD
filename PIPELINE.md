@@ -1,3 +1,4 @@
+
 # Documentación del Pipeline CI/CD – TaskFlow
 
 ## 1. Introducción
@@ -65,7 +66,11 @@ Se ejecuta:
 npm run test -- --coverage
 ```
 
-Vitest ejecuta las pruebas unitarias y genera un informe de cobertura utilizando el proveedor V8.
+Vitest ejecuta las pruebas automatizadas y genera un informe de cobertura utilizando el proveedor V8.
+
+El proyecto cuenta con dos categorías de pruebas:
+
+**Pruebas unitarias:**
 
 Se implementaron siete pruebas para verificar:
 
@@ -77,20 +82,42 @@ Se implementaron siete pruebas para verificar:
 6. Intento de eliminación de una tarea inexistente.
 7. Intento de cambiar el estado de una tarea inexistente.
 
+**Pruebas de integración:**
+
+Se implementaron ocho pruebas utilizando jsdom para simular el navegador y comprobar la interacción entre la aplicación y el DOM:
+
+1. Renderizado inicial.
+2. Agregar tareas mediante el formulario.
+3. Actualización de estadísticas.
+4. Completar y deshacer tareas.
+5. Eliminar tareas.
+6. Rechazar entradas vacías.
+7. Mostrar de forma segura el contenido introducido.
+8. Ignorar clics fuera de los botones de acción.
+
+### 4.5. Resultados de las pruebas y cobertura
+
 En la validación local se obtuvieron los siguientes resultados:
 
 | Métrica | Resultado |
 |---|---:|
-| Pruebas aprobadas | 7 de 7 |
+| Archivos de prueba aprobados | 2 de 2 |
+| Pruebas unitarias | 7 de 7 |
+| Pruebas de integración | 8 de 8 |
+| Total de pruebas aprobadas | 15 de 15 |
 | Pruebas fallidas | 0 |
-| Statements | 100% |
-| Branches | 100% |
-| Functions | 100% |
-| Lines | 100% |
 
-El porcentaje de cobertura corresponde al módulo `taskManager.js`, que fue el archivo instrumentado por Vitest.
+Resultados de cobertura:
 
-### 4.5. Construcción de la aplicación
+| Archivo | Statements | Branches | Functions | Lines |
+|---|---:|---:|---:|---:|
+| app.js | 100% | 100% | 100% | 100% |
+| taskManager.js | 100% | 100% | 100% | 100% |
+| **Total** | **100%** | **100%** | **100%** | **100%** |
+
+La cobertura del 100% corresponde a los dos archivos de código instrumentados por Vitest: `app.js` y `taskManager.js`.
+
+### 4.6. Construcción de la aplicación
 
 Se ejecuta:
 
@@ -102,7 +129,7 @@ Vite genera una versión optimizada de la aplicación para producción.
 
 Los archivos resultantes se almacenan en la carpeta `dist`.
 
-### 4.6. Preparación del artefacto
+### 4.7. Preparación del artefacto
 
 Se utiliza:
 
@@ -110,7 +137,7 @@ Se utiliza:
 
 Esta acción almacena los archivos generados en `dist` para que puedan utilizarse en el proceso de despliegue.
 
-### 4.7. Despliegue
+### 4.8. Despliegue
 
 El segundo trabajo utiliza:
 
@@ -176,7 +203,7 @@ Desarrollador realiza cambios
      Instalar dependencias
             |
             v
-     Ejecutar 7 pruebas
+  Ejecutar 15 pruebas automatizadas
             |
             v
      Generar cobertura
@@ -189,17 +216,17 @@ Desarrollador realiza cambios
             |
             v
     ¿Push a la rama main?
-            |
-       Sí   |   No
-        |       |
-        v       v
-     Desplegar  Finalizar
+          /       \
+        Sí         No
+        |           |
+        v           v
+   Desplegar     Finalizar
         |
         v
-    GitHub Pages
+   GitHub Pages
         |
         v
- Aplicación publicada
+Aplicación publicada
 ```
 
 ## 8. Verificación del pipeline
@@ -220,7 +247,7 @@ Repositorio:
 
 https://github.com/Gabriel-Read5/TaskFlow-CICD
 
-Históricamente se verificaron ejecuciones exitosas del workflow. Las nuevas modificaciones deberán validarse mediante una ejecución adicional después de enviarlas al repositorio.
+Las nuevas modificaciones deberán validarse mediante una ejecución adicional después de enviarlas al repositorio.
 
 ## 9. Resultados
 
@@ -229,8 +256,10 @@ La implementación permitió automatizar las pruebas, la construcción y el desp
 Durante las validaciones locales se consiguieron los siguientes resultados:
 
 - Siete pruebas unitarias aprobadas.
+- Ocho pruebas de integración aprobadas.
+- Quince pruebas automatizadas aprobadas en total.
 - Cero pruebas fallidas.
-- 100% de cobertura en el módulo `taskManager.js`.
+- 100% de cobertura en statements, branches, functions y lines para `app.js` y `taskManager.js`.
 - Instalación correcta de las dependencias mediante `npm ci`.
 - Compilación de producción exitosa mediante Vite.
 - Ejecución local satisfactoria de la aplicación.
@@ -241,8 +270,8 @@ El proceso facilita la validación de cambios y permite mantener una versión pu
 
 La implementación del pipeline CI/CD permitió aplicar conceptos de automatización y control de calidad dentro del desarrollo de software.
 
-La integración de GitHub Actions, Vitest, Vite y GitHub Pages proporciona un flujo organizado que reduce las tareas manuales y facilita la publicación de nuevas versiones de la aplicación.
+La integración de GitHub Actions, Vitest, jsdom, Vite y GitHub Pages proporciona un flujo organizado que reduce las tareas manuales y facilita la publicación de nuevas versiones de la aplicación.
 
-La incorporación de siete pruebas unitarias y los resultados de cobertura obtenidos fortalecen la validación de la lógica principal de TaskFlow.
+La incorporación de pruebas unitarias y de integración, junto con los resultados de cobertura obtenidos, fortalece la validación de la lógica y del funcionamiento de la interfaz de TaskFlow.
 
 Además, la utilización de Node.js 24 permite mantener el entorno local alineado con la versión configurada en el pipeline.

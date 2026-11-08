@@ -14,7 +14,7 @@ Para trabajar con el despliegue se necesita:
 
 - Una cuenta de GitHub.
 - Un repositorio que contenga el proyecto TaskFlow.
-- Node.js 24 LTS.
+- Node.js 24.
 - npm.
 - Git.
 - Un archivo de configuración de GitHub Actions.
@@ -36,7 +36,7 @@ Vite se utiliza para generar una versión optimizada de TaskFlow.
 
 Para ejecutar la construcción localmente:
 
-```bash id="mkn0fy"
+```bash
 npm run build
 ```
 
@@ -55,10 +55,17 @@ Cuando se realiza un `push` a la rama `main`, GitHub Actions ejecuta las siguien
 1. Descarga el código del repositorio.
 2. Configura Node.js 24.
 3. Instala las dependencias mediante `npm ci`.
-4. Ejecuta las siete pruebas automatizadas y genera el reporte de cobertura.
+4. Ejecuta las pruebas automatizadas mediante Vitest y genera el reporte de cobertura.
 5. Construye la aplicación con Vite.
 6. Sube los archivos generados como artefacto.
 7. Publica la aplicación utilizando GitHub Pages.
+
+El proyecto cuenta con 15 pruebas automatizadas:
+
+- 7 pruebas unitarias en `src/taskManager.test.js`.
+- 8 pruebas de integración en `src/app.test.js`.
+
+La cobertura local registrada es del 100% en statements, branches, functions y lines para los archivos `app.js` y `taskManager.js`.
 
 Los eventos de Pull Request también ejecutan las pruebas y la construcción, pero no realizan el despliegue.
 
@@ -94,7 +101,7 @@ Para publicar una nueva versión:
 
 Ejemplo:
 
-```bash id="q1dfnb"
+```bash
 git add .
 git commit -m "Update TaskFlow application"
 git push origin main
@@ -131,5 +138,7 @@ La separación de permisos ayuda a mantener un proceso de publicación controlad
 La implementación de GitHub Pages junto con GitHub Actions permite automatizar la publicación de TaskFlow, reduciendo los pasos manuales y facilitando la entrega continua de nuevas versiones.
 
 La utilización de Node.js 24, Vitest y Vite permite mantener un proceso organizado de validación y construcción antes de publicar los cambios.
+
+Además, la incorporación de pruebas unitarias y de integración fortalece la validación de las funcionalidades de la aplicación antes de su despliegue.
 
 Este procedimiento demuestra cómo integrar herramientas de CI/CD en un proyecto web utilizando un flujo de trabajo automatizado.

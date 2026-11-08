@@ -13,7 +13,7 @@ El objetivo es mantener una estructura organizada, asegurar la calidad del códi
 Antes de contribuir al proyecto, se recomienda contar con las siguientes herramientas:
 
 - Git instalado.
-- Node.js 24 LTS.
+- Node.js 24.
 - npm.
 - Visual Studio Code u otro editor de código.
 - Una cuenta de GitHub.
@@ -86,18 +86,23 @@ Para comprobar la cobertura:
 npx vitest run --coverage
 ```
 
-El proyecto cuenta actualmente con siete pruebas unitarias que verifican las operaciones principales del administrador de tareas.
+Actualmente, el proyecto cuenta con **15 pruebas automatizadas**, distribuidas de la siguiente manera:
 
-Durante la validación local se obtuvo:
+- 7 pruebas unitarias en `src/taskManager.test.js`.
+- 8 pruebas de integración en `src/app.test.js`.
 
-- 7 pruebas aprobadas.
+Las pruebas unitarias verifican las operaciones principales del administrador de tareas, mientras que las pruebas de integración comprueban la interacción entre la interfaz y la lógica de la aplicación.
+
+Durante la validación local se obtuvieron los siguientes resultados:
+
+- 15 pruebas aprobadas.
 - 0 pruebas fallidas.
 - 100% de cobertura de statements.
 - 100% de cobertura de branches.
 - 100% de cobertura de functions.
 - 100% de cobertura de lines.
 
-Estos porcentajes corresponden al módulo `taskManager.js`, que es el archivo instrumentado por Vitest.
+Estos porcentajes corresponden a los módulos `app.js` y `taskManager.js`, según el informe de cobertura generado por Vitest.
 
 También verifica que la aplicación pueda construirse correctamente:
 
@@ -128,7 +133,7 @@ Ejemplos:
 - `Add task filtering functionality`
 - `Fix task statistics calculation`
 - `Update project documentation`
-- `Improve unit test coverage`
+- `Improve integration test coverage`
 
 ## 8. Publicar los cambios
 
