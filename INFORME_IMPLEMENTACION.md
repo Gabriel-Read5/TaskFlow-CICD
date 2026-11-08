@@ -1,10 +1,10 @@
 # Informe de implementación del proyecto TaskFlow
 ## Implementación de un pipeline CI/CD con GitHub Actions
 
-**Proyecto:** TaskFlow – Aplicación web de gestión de tareas  
-**Estudiante:** Gabriel Read / 2024-2521 
-**Repositorio:** https://github.com/Gabriel-Read5/TaskFlow-CICD  
-**Tecnologías:** HTML, CSS, JavaScript, Vite, Vitest y GitHub Actions.
+**Proyecto:** TaskFlow – Aplicación web de gestión de tareas
+**Estudiante:** Gabriel Read / 2024-2521
+**Repositorio:** https://github.com/Gabriel-Read5/TaskFlow-CICD
+**Tecnologías:** HTML, CSS, JavaScript, Node.js, Vite, Vitest y GitHub Actions.
 
 ---
 
@@ -42,11 +42,12 @@ Para desarrollar el proyecto se utilizaron las siguientes herramientas:
 | HTML5 | Estructura de la aplicación. |
 | CSS3 | Diseño visual y adaptación de la interfaz. |
 | JavaScript | Lógica y funcionalidades de TaskFlow. |
-| Node.js | Entorno de ejecución de JavaScript. |
-| npm | Administración de dependencias. |
-| Vite | Herramienta de desarrollo y construcción. |
-| Vitest | Ejecución de pruebas automatizadas. |
+| Node.js 24.22.0 LTS | Entorno de ejecución de JavaScript. |
+| npm 11.19.1 | Administración de dependencias. |
+| Vite 7.3.7 | Herramienta de desarrollo y construcción. |
+| Vitest 5.1.0 | Ejecución de pruebas automatizadas. |
 | jsdom | Simulación de un entorno DOM para pruebas. |
+| @vitest/coverage-v8 | Generación de reportes de cobertura. |
 | Git | Control de versiones. |
 | GitHub | Alojamiento del repositorio. |
 | GitHub Actions | Automatización del pipeline CI/CD. |
@@ -73,20 +74,21 @@ Esta separación facilita el mantenimiento del código y permite probar la lógi
 
 ## 5. Implementación de pruebas automatizadas
 
-Para verificar el funcionamiento de la lógica de la aplicación se utilizó Vitest.
+Para verificar el funcionamiento de la lógica de la aplicación se utilizó Vitest, un framework de pruebas para JavaScript.
 
-Se implementaron pruebas unitarias para comprobar diferentes operaciones del administrador de tareas, incluyendo:
+Se implementaron siete pruebas unitarias para comprobar diferentes operaciones del administrador de tareas:
 
-- Creación de tareas.
-- Cálculo de estadísticas.
-- Cambio del estado de una tarea.
-- Eliminación de tareas.
-- Reversión del estado de una tarea completada.
-- Eliminación de identificadores inexistentes.
+1. Creación correcta de una tarea.
+2. Cálculo de estadísticas de tareas pendientes, completadas y totales.
+3. Cambio del estado de una tarea.
+4. Eliminación correcta de una tarea.
+5. Reversión del estado de una tarea completada.
+6. Comportamiento al intentar eliminar una tarea inexistente.
+7. Comportamiento al intentar cambiar el estado de una tarea cuyo identificador no existe.
 
 También se configuró la generación de reportes de cobertura mediante `@vitest/coverage-v8`.
 
-Los comandos utilizados son:
+Los comandos utilizados para ejecutar las pruebas son:
 
 ```bash
 npm run test
@@ -98,7 +100,23 @@ Para ejecutar las pruebas con cobertura:
 npx vitest run --coverage
 ```
 
-La ejecución de estas pruebas permite detectar errores en la lógica antes de integrar los cambios al proyecto.
+### 5.1 Resultados de las pruebas
+
+Durante la validación local se obtuvieron los siguientes resultados:
+
+| Indicador | Resultado |
+|---|---:|
+| Archivos de prueba aprobados | 1 de 1 |
+| Pruebas unitarias aprobadas | 7 de 7 |
+| Pruebas fallidas | 0 |
+| Statements | 100% |
+| Branches | 100% |
+| Functions | 100% |
+| Lines | 100% |
+
+El porcentaje de cobertura corresponde específicamente al módulo `taskManager.js`, que fue el archivo instrumentado por Vitest. Este resultado no representa necesariamente la cobertura de toda la aplicación.
+
+Los resultados permiten comprobar que las funciones principales de la lógica de administración de tareas están cubiertas por las pruebas implementadas.
 
 ## 6. Configuración del pipeline CI/CD
 
@@ -117,7 +135,7 @@ Este trabajo se encarga de preparar y validar el proyecto.
 Sus pasos son:
 
 1. Obtener el código fuente del repositorio mediante GitHub Actions.
-2. Configurar Node.js.
+2. Configurar Node.js 24.
 3. Instalar las dependencias utilizando `npm ci`.
 4. Ejecutar las pruebas automatizadas y generar el reporte de cobertura.
 5. Construir la aplicación mediante `npm run build`.
@@ -165,16 +183,18 @@ Durante la implementación se lograron los siguientes resultados:
 
 - Se desarrolló una aplicación web funcional para la gestión de tareas.
 - Se organizó la lógica de negocio en módulos independientes.
-- Se incorporaron pruebas unitarias mediante Vitest.
+- Se incorporaron siete pruebas unitarias mediante Vitest.
+- Se alcanzó un 100% de cobertura en el módulo `taskManager.js`.
 - Se configuró la generación de reportes de cobertura.
 - Se creó un pipeline CI/CD mediante GitHub Actions.
 - Se automatizaron las etapas de instalación, pruebas y construcción.
 - Se configuró la publicación automática mediante GitHub Pages.
-- Se verificó una ejecución exitosa del workflow.
-- Se publicó una versión funcional de TaskFlow en internet.
+- Se verificaron ejecuciones exitosas anteriores del workflow.
+- Se comprobó localmente el funcionamiento de la aplicación.
+- Se ejecutó satisfactoriamente la compilación de producción con Vite.
 - Se preparó documentación para explicar el desarrollo, la contribución y el despliegue.
 
-La ejecución exitosa del pipeline y la disponibilidad de la aplicación publicada demuestran que la integración entre GitHub Actions y GitHub Pages funciona correctamente.
+Las validaciones locales realizadas con Node.js 24.22.0 confirmaron que las dependencias se instalaron correctamente, las siete pruebas fueron aprobadas, la cobertura del módulo `taskManager.js` alcanzó el 100% y la compilación de producción finalizó satisfactoriamente.
 
 ## 10. Dificultades y soluciones
 
@@ -184,9 +204,13 @@ Uno de ellos estuvo relacionado con la ubicación del archivo `index.html`. Inic
 
 La solución consistió en colocar `index.html` en el directorio raíz del proyecto y actualizar las referencias a los archivos CSS y JavaScript.
 
-También se identificó una advertencia relacionada con la versión local de Node.js y los requisitos de algunas dependencias. Para mantener una configuración compatible con el pipeline, se estableció Node.js 24 en GitHub Actions.
+También se identificó una advertencia relacionada con la versión local de Node.js y los requisitos de algunas dependencias. Inicialmente se utilizaba Node.js 25.6.1, por lo que se decidió alinear el entorno local con la versión utilizada en GitHub Actions.
 
-Estas correcciones permitieron continuar con las pruebas y el despliegue.
+Para solucionar esta situación, se instaló Node.js 24.22.0 LTS. Posteriormente, se reinstalaron las dependencias mediante `npm ci` y se ejecutaron nuevamente las pruebas automatizadas, el análisis de cobertura y la compilación de producción.
+
+Las validaciones finalizaron correctamente, con siete pruebas aprobadas, un 100% de cobertura en el módulo `taskManager.js` y una compilación exitosa mediante Vite.
+
+Además, se actualizó el archivo `.gitignore` para excluir el directorio `dist/`, evitando incorporar al control de versiones los archivos generados automáticamente durante la compilación.
 
 ## 11. Conclusión
 
@@ -194,6 +218,10 @@ La implementación de TaskFlow permitió aplicar conocimientos de desarrollo web
 
 La incorporación de GitHub Actions facilitó la automatización de las tareas necesarias para validar y construir la aplicación, mientras que GitHub Pages permitió publicar el resultado sin necesidad de realizar manualmente cada etapa del despliegue.
 
-El proyecto demuestra la importancia de integrar prácticas DevOps en el desarrollo de software, especialmente cuando se busca mejorar la calidad, mantener un flujo de trabajo organizado y facilitar la entrega de nuevas versiones.
+La implementación de siete pruebas unitarias y la obtención de un 100% de cobertura en el módulo `taskManager.js` permitieron verificar de manera más completa la lógica principal del administrador de tareas.
+
+Asimismo, la alineación del entorno local con Node.js 24.22.0 permitió ejecutar satisfactoriamente la instalación de dependencias, las pruebas y la construcción de producción.
 
 Finalmente, se cumplieron los objetivos principales mediante la creación de una aplicación funcional, la implementación de pruebas automatizadas, la configuración del pipeline CI/CD y la publicación de TaskFlow en un entorno accesible públicamente.
+
+El proyecto demuestra la importancia de integrar prácticas DevOps en el desarrollo de software, especialmente cuando se busca mejorar la calidad, mantener un flujo de trabajo organizado y facilitar la entrega de nuevas versiones.

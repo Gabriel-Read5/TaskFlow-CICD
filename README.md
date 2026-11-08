@@ -1,46 +1,43 @@
-# TaskFlow – Aplicación de gestión de tareas
+# TaskFlow - Proyecto CI/CD
 
 ## 1. Descripción del proyecto
 
-TaskFlow es una aplicación web desarrollada para facilitar la organización y administración de tareas personales. Permite agregar nuevas tareas, marcarlas como completadas, eliminarlas y visualizar estadísticas sobre su estado.
-
-Este proyecto fue desarrollado como parte de una práctica académica de integración y entrega continua (CI/CD), utilizando GitHub Actions para automatizar las pruebas, la construcción y el despliegue de la aplicación.
+TaskFlow es una aplicación web para la gestión de tareas, desarrollada con JavaScript, HTML y CSS. El proyecto tiene como propósito implementar un flujo de integración continua y entrega continua (CI/CD) utilizando GitHub Actions y GitHub Pages.
 
 ## 2. Objetivos
 
 - Desarrollar una aplicación web funcional para administrar tareas.
-- Implementar pruebas unitarias automatizadas.
+- Implementar pruebas unitarias automatizadas con Vitest.
 - Medir la cobertura del código.
-- Configurar un pipeline CI/CD mediante GitHub Actions.
-- Automatizar la construcción y publicación de la aplicación.
-- Utilizar Git y GitHub para el control de versiones.
+- Configurar un pipeline CI/CD con GitHub Actions.
+- Automatizar la construcción de la aplicación.
+- Publicar la aplicación mediante GitHub Pages.
 
 ## 3. Tecnologías utilizadas
 
-| Tecnología | Función |
+| Tecnología | Descripción |
 |---|---|
-| HTML5 | Estructura de la aplicación |
-| CSS3 | Diseño y estilos visuales |
-| JavaScript | Lógica de la aplicación |
-| Node.js | Entorno de ejecución |
-| Vite | Servidor de desarrollo y construcción |
-| Vitest | Pruebas automatizadas |
-| jsdom | Entorno DOM para pruebas |
-| Git | Control de versiones |
-| GitHub | Repositorio remoto |
-| GitHub Actions | Automatización CI/CD |
-| GitHub Pages | Publicación de la aplicación |
+| HTML5 | Estructura de la aplicación. |
+| CSS3 | Diseño y estilos. |
+| JavaScript | Lógica de programación. |
+| Node.js 24 LTS | Entorno de ejecución. |
+| npm | Administración de dependencias. |
+| Vite 7 | Herramienta de construcción. |
+| Vitest 5 | Framework de pruebas unitarias. |
+| Git y GitHub | Control de versiones y repositorio. |
+| GitHub Actions | Automatización del pipeline CI/CD. |
+| GitHub Pages | Publicación de la aplicación. |
 
 ## 4. Funcionalidades
 
-- Agregar tareas.
-- Completar tareas.
-- Deshacer tareas completadas.
+La aplicación permite:
+
+- Crear nuevas tareas.
+- Consultar las tareas registradas.
+- Marcar tareas como completadas.
+- Deshacer el estado de una tarea completada.
 - Eliminar tareas.
-- Visualizar el número de tareas pendientes.
-- Visualizar el número de tareas completadas.
-- Consultar el total de tareas registradas.
-- Interfaz adaptable a dispositivos móviles.
+- Consultar estadísticas de tareas pendientes, completadas y totales.
 
 ## 5. Estructura del proyecto
 
@@ -52,47 +49,46 @@ TaskFlow-CICD/
 │       └── ci-cd.yml
 │
 ├── src/
-│   ├── app.js
-│   ├── style.css
 │   ├── taskManager.js
-│   └── taskManager.test.js
+│   ├── taskManager.test.js
+│   └── app.js
 │
-├── .gitignore
 ├── index.html
 ├── package.json
 ├── package-lock.json
 ├── vite.config.js
-└── README.md
+├── .gitignore
+├── README.md
+├── PIPELINE.md
+├── CONTRIBUTING.md
+├── DEPLOYMENT.md
+└── INFORME_IMPLEMENTACION.md
 ```
 
-## 6. Instalación y ejecución
+## 6. Instalación y configuración
 
-### Requisitos previos
+Requisitos:
 
-- Node.js 24 LTS recomendado.
+- Node.js 24 LTS.
 - npm.
 - Git.
-- Visual Studio Code u otro editor de código.
 
-### Clonar el repositorio
+Clonar el repositorio:
 
 ```bash
 git clone https://github.com/Gabriel-Read5/TaskFlow-CICD.git
-```
-
-### Entrar en el directorio
-
-```bash
 cd TaskFlow-CICD
 ```
 
-### Instalar dependencias
+Instalar dependencias:
 
 ```bash
 npm ci
 ```
 
-### Ejecutar la aplicación
+## 7. Ejecución local
+
+Para iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
@@ -100,77 +96,97 @@ npm run dev
 
 Vite proporcionará una dirección local para acceder a la aplicación desde el navegador.
 
-## 7. Pruebas automatizadas
+## 8. Pruebas automatizadas
 
-El proyecto utiliza Vitest para verificar el funcionamiento de las funciones principales del administrador de tareas.
-
-Para ejecutar las pruebas:
+Ejecutar las pruebas:
 
 ```bash
 npm run test
 ```
 
-Para ejecutar las pruebas con cobertura:
+Ejecutar las pruebas con cobertura:
 
 ```bash
 npx vitest run --coverage
 ```
 
-Las pruebas verifican:
+### Resultados de validación
 
-1. Creación de tareas.
+Se implementaron siete pruebas unitarias para verificar:
+
+1. Creación correcta de tareas.
 2. Cálculo de estadísticas.
-3. Cambio del estado de las tareas.
+3. Cambio del estado de una tarea.
 4. Eliminación de tareas.
-5. Deshacer tareas completadas.
-6. Comportamiento al intentar eliminar una tarea inexistente.
+5. Reversión del estado de una tarea completada.
+6. Intento de eliminación de una tarea inexistente.
+7. Intento de cambiar el estado de una tarea inexistente.
 
-## 8. Integración y entrega continua (CI/CD)
+Resultados obtenidos:
 
-El proyecto utiliza GitHub Actions mediante el archivo:
+| Métrica | Resultado |
+|---|---:|
+| Archivos de prueba aprobados | 1/1 |
+| Pruebas aprobadas | 7/7 |
+| Pruebas fallidas | 0 |
+| Statements | 100% |
+| Branches | 100% |
+| Functions | 100% |
+| Lines | 100% |
 
-`.github/workflows/ci-cd.yml`
+**Nota:** El 100% de cobertura corresponde al módulo `taskManager.js`, instrumentado por Vitest, y no representa necesariamente la cobertura de toda la aplicación.
 
-El pipeline se ejecuta automáticamente cuando se realizan cambios en la rama `main` o se crea un Pull Request dirigido a dicha rama.
+## 9. Construcción de producción
 
-El proceso incluye:
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
+
+La herramienta Vite genera los archivos optimizados dentro del directorio `dist/`.
+
+La compilación local se completó satisfactoriamente utilizando Node.js 24.22.0.
+
+## 10. Pipeline CI/CD
+
+El proyecto utiliza GitHub Actions para automatizar los siguientes procesos:
 
 1. Obtener el código del repositorio.
-2. Configurar Node.js.
+2. Configurar Node.js 24.
 3. Instalar las dependencias.
 4. Ejecutar las pruebas automatizadas.
-5. Generar el análisis de cobertura.
+5. Generar el reporte de cobertura.
 6. Construir la aplicación con Vite.
-7. Preparar los archivos de producción.
-8. Desplegar la aplicación en GitHub Pages cuando corresponde.
+7. Publicar la aplicación en GitHub Pages.
 
-## 9. Despliegue
+El pipeline se ejecuta mediante eventos `push` y `pull_request` dirigidos a la rama `main`.
 
-La aplicación está publicada mediante GitHub Pages.
+## 11. Enlaces del proyecto
 
-**Enlace de acceso:**
-
-https://gabriel-read5.github.io/TaskFlow-CICD/
-
-**Repositorio:**
+**Repositorio GitHub:**
 
 https://github.com/Gabriel-Read5/TaskFlow-CICD
 
-## 10. Resultados obtenidos
+**Aplicación publicada:**
+
+https://gabriel-read5.github.io/TaskFlow-CICD/
+
+## 12. Resultados obtenidos
 
 Durante la implementación se consiguió:
 
 - Desarrollar una aplicación web funcional.
-- Implementar seis pruebas unitarias automatizadas.
-- Configurar Vitest para analizar la cobertura del código.
-- Crear un repositorio público en GitHub.
-- Configurar un pipeline automatizado con GitHub Actions.
-- Construir la aplicación mediante Vite.
-- Desplegar satisfactoriamente la aplicación en GitHub Pages.
+- Implementar siete pruebas unitarias automatizadas.
+- Alcanzar un 100% de cobertura en el módulo `taskManager.js`.
+- Configurar un repositorio público en GitHub.
+- Implementar un pipeline CI/CD mediante GitHub Actions.
+- Automatizar las pruebas y la construcción de la aplicación.
+- Publicar la aplicación mediante GitHub Pages.
+- Validar localmente la instalación, las pruebas y la compilación.
 
-## 11. Autor
+## 13. Autor
 
 **Gabriel-Read5**
 
 Proyecto académico de implementación de CI/CD utilizando GitHub Actions.
-

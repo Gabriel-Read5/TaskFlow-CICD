@@ -6,13 +6,15 @@ Este documento describe el procedimiento utilizado para desplegar la aplicación
 
 El proceso permite automatizar la construcción y publicación de la aplicación cada vez que se realizan cambios en la rama principal del repositorio.
 
+La integración de estas herramientas facilita la entrega continua y permite mantener disponible una versión actualizada de la aplicación.
+
 ## 2. Requisitos
 
 Para trabajar con el despliegue se necesita:
 
 - Una cuenta de GitHub.
 - Un repositorio que contenga el proyecto TaskFlow.
-- Node.js 24.
+- Node.js 24 LTS.
 - npm.
 - Git.
 - Un archivo de configuración de GitHub Actions.
@@ -34,11 +36,13 @@ Vite se utiliza para generar una versión optimizada de TaskFlow.
 
 Para ejecutar la construcción localmente:
 
-```bash
+```bash id="mkn0fy"
 npm run build
 ```
 
 El proceso genera una carpeta llamada `dist`, que contiene los archivos preparados para producción.
+
+La carpeta `dist` es un resultado generado durante la compilación y no necesita incorporarse al control de versiones, ya que el pipeline la prepara automáticamente.
 
 ## 5. Ejecución del pipeline
 
@@ -49,14 +53,16 @@ El workflow se encuentra en:
 Cuando se realiza un `push` a la rama `main`, GitHub Actions ejecuta las siguientes etapas:
 
 1. Descarga el código del repositorio.
-2. Configura Node.js.
+2. Configura Node.js 24.
 3. Instala las dependencias mediante `npm ci`.
-4. Ejecuta las pruebas automatizadas y genera el reporte de cobertura.
+4. Ejecuta las siete pruebas automatizadas y genera el reporte de cobertura.
 5. Construye la aplicación con Vite.
 6. Sube los archivos generados como artefacto.
 7. Publica la aplicación utilizando GitHub Pages.
 
 Los eventos de Pull Request también ejecutan las pruebas y la construcción, pero no realizan el despliegue.
+
+El despliegue depende de que el trabajo de construcción y pruebas finalice correctamente.
 
 ## 6. Verificación del despliegue
 
@@ -66,10 +72,11 @@ Para comprobar que el despliegue se realizó correctamente:
 2. Seleccionar la ejecución más reciente del workflow.
 3. Verificar que los trabajos de construcción, pruebas y despliegue hayan finalizado correctamente.
 4. Abrir la dirección pública de GitHub Pages.
+5. Comprobar que la aplicación se visualice y que sus funcionalidades principales estén disponibles.
 
 **Repositorio:**
 
-https://github.com/Gabriel-Read5/TaskFlow-CICD
+https://github.com/Gabriel-Read5/TaskFlow-CICD/
 
 **Aplicación publicada:**
 
@@ -87,13 +94,15 @@ Para publicar una nueva versión:
 
 Ejemplo:
 
-```bash
+```bash id="q1dfnb"
 git add .
 git commit -m "Update TaskFlow application"
 git push origin main
 ```
 
 GitHub Actions detectará el cambio y ejecutará nuevamente el pipeline.
+
+Si las pruebas y la construcción finalizan correctamente, se realizará el despliegue correspondiente.
 
 ## 8. Solución de problemas
 
@@ -102,9 +111,10 @@ Si el despliegue presenta errores, se recomienda:
 - Revisar los registros de ejecución en GitHub Actions.
 - Comprobar que las dependencias estén correctamente instaladas.
 - Verificar que las pruebas automatizadas finalicen sin errores.
-- Confirmar que la carpeta `dist` se haya generado.
+- Confirmar que la carpeta `dist` se haya generado durante la construcción.
 - Revisar que GitHub Pages esté configurado para utilizar GitHub Actions.
 - Comprobar que el workflow tenga los permisos necesarios para publicar.
+- Verificar que la rama principal utilizada sea `main`.
 
 ## 9. Seguridad y permisos
 
@@ -119,5 +129,7 @@ La separación de permisos ayuda a mantener un proceso de publicación controlad
 ## 10. Conclusión
 
 La implementación de GitHub Pages junto con GitHub Actions permite automatizar la publicación de TaskFlow, reduciendo los pasos manuales y facilitando la entrega continua de nuevas versiones.
+
+La utilización de Node.js 24, Vitest y Vite permite mantener un proceso organizado de validación y construcción antes de publicar los cambios.
 
 Este procedimiento demuestra cómo integrar herramientas de CI/CD en un proyecto web utilizando un flujo de trabajo automatizado.

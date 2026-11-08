@@ -67,14 +67,28 @@ npm run test -- --coverage
 
 Vitest ejecuta las pruebas unitarias y genera un informe de cobertura utilizando el proveedor V8.
 
-Las pruebas verifican:
+Se implementaron siete pruebas para verificar:
 
-1. Creación de tareas.
+1. Creación correcta de tareas.
 2. Cálculo de estadísticas.
 3. Cambio del estado de una tarea.
 4. Eliminación de tareas.
-5. Deshacer tareas completadas.
+5. Reversión del estado de tareas completadas.
 6. Intento de eliminación de una tarea inexistente.
+7. Intento de cambiar el estado de una tarea inexistente.
+
+En la validación local se obtuvieron los siguientes resultados:
+
+| Métrica | Resultado |
+|---|---:|
+| Pruebas aprobadas | 7 de 7 |
+| Pruebas fallidas | 0 |
+| Statements | 100% |
+| Branches | 100% |
+| Functions | 100% |
+| Lines | 100% |
+
+El porcentaje de cobertura corresponde al módulo `taskManager.js`, que fue el archivo instrumentado por Vitest.
 
 ### 4.5. Construcción de la aplicación
 
@@ -113,7 +127,7 @@ El pipeline está dividido en dos trabajos principales:
 **Build and Test**
 
 - Obtiene el código.
-- Configura Node.js.
+- Configura Node.js 24.
 - Instala dependencias.
 - Ejecuta pruebas y cobertura.
 - Construye la aplicación.
@@ -156,13 +170,13 @@ Desarrollador realiza cambios
      Checkout del código
             |
             v
-      Configurar Node.js
+      Configurar Node.js 24
             |
             v
      Instalar dependencias
             |
             v
-     Ejecutar pruebas
+     Ejecutar 7 pruebas
             |
             v
      Generar cobertura
@@ -202,9 +216,24 @@ En esta sección se pueden revisar:
 
 Una ejecución satisfactoria se identifica mediante el indicador verde de GitHub Actions.
 
+Repositorio:
+
+https://github.com/Gabriel-Read5/TaskFlow-CICD
+
+Históricamente se verificaron ejecuciones exitosas del workflow. Las nuevas modificaciones deberán validarse mediante una ejecución adicional después de enviarlas al repositorio.
+
 ## 9. Resultados
 
-La implementación permitió automatizar satisfactoriamente las pruebas, la construcción y el despliegue de TaskFlow.
+La implementación permitió automatizar las pruebas, la construcción y el despliegue de TaskFlow.
+
+Durante las validaciones locales se consiguieron los siguientes resultados:
+
+- Siete pruebas unitarias aprobadas.
+- Cero pruebas fallidas.
+- 100% de cobertura en el módulo `taskManager.js`.
+- Instalación correcta de las dependencias mediante `npm ci`.
+- Compilación de producción exitosa mediante Vite.
+- Ejecución local satisfactoria de la aplicación.
 
 El proceso facilita la validación de cambios y permite mantener una versión publicada de la aplicación mediante GitHub Pages.
 
@@ -213,3 +242,7 @@ El proceso facilita la validación de cambios y permite mantener una versión pu
 La implementación del pipeline CI/CD permitió aplicar conceptos de automatización y control de calidad dentro del desarrollo de software.
 
 La integración de GitHub Actions, Vitest, Vite y GitHub Pages proporciona un flujo organizado que reduce las tareas manuales y facilita la publicación de nuevas versiones de la aplicación.
+
+La incorporación de siete pruebas unitarias y los resultados de cobertura obtenidos fortalecen la validación de la lógica principal de TaskFlow.
+
+Además, la utilización de Node.js 24 permite mantener el entorno local alineado con la versión configurada en el pipeline.

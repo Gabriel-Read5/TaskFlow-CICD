@@ -4,6 +4,9 @@ node_modules/
 # Informes de cobertura
 coverage/
 
+# Archivos generados por la compilación
+dist/
+
 # Archivos de entorno
 .env
 .env.*

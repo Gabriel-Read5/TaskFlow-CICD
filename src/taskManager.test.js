@@ -81,4 +81,17 @@ describe('Pruebas del administrador de tareas', () => {
         expect(result[0].id).toBe('1');
     });
 
+    // Prueba 7: Intentar cambiar el estado de una tarea inexistente
+    it('no debe modificar ninguna tarea si el ID no existe', () => {
+        const tasks = [
+            { id: '1', title: 'Tarea 1', completed: false },
+            { id: '2', title: 'Tarea 2', completed: true }
+        ];
+
+        const result = toggleTask(tasks, '999');
+
+        expect(result).toHaveLength(2);
+        expect(result).toEqual(tasks);
+    });
+
 });
