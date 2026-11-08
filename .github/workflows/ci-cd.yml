@@ -1,0 +1,80 @@
+name: TaskFlow CI/CD Pipeline
+
+# Ejecutar el pipeline cuando se publique un cambio en main
+# o se cree un Pull Request hacia main.
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+# Permisos necesarios para GitHub Pages
+permissions:
+  contents: read
+
+jobs:
+
+  # Primer trabajo: pruebas y construcción
+  build-and-test:
+    name: Build and Test
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Obtener el código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # Instalar dependencias
+      - name: Install dependencies
+        run: npm ci
+
+      # Ejecutar pruebas y cobertura
+      - name: Run tests and coverage
+        run: npm run test -- --coverage
+
+      # Construir aplicación
+      - name: Build application
+        run: npm run build
+
+      # Guardar archivos generados para el despliegue
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  # Segundo trabajo: despliegue en GitHub Pages
+  deploy:
+    name: Deploy to GitHub Pages
+
+    needs: build-and-test
+
+    # Solo desplegar cuando sea un push a main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
